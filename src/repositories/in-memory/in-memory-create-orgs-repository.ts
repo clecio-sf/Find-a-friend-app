@@ -26,4 +26,10 @@ export class inMemoryCreateOrgsRepository implements OrgsRepository {
 
     return org
   }
+
+  async findByEmail(email: string) {
+    const org = this.itens.find((item) => item.email === email)
+
+    return org || null
+  }
 }
