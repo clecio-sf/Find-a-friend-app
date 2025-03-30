@@ -18,9 +18,23 @@ export async function authenticate(
   const data = authenticateBodySchema.parse(request.body)
 
   try {
-    await useCase.execute(data)
+    const { org } = await useCase.execute(data)
 
-    return reply.status(200).send()
-  } catch (err) {}
-  return reply.status(400).send('Invalid Credentials')
+    const token = await reply.jwtSign(
+      {
+        role: org.role,
+      },
+      {
+        sign: {
+          sub: org.id,
+        },
+      },
+    )
+
+    return reply.status(200).send({
+      token,
+    })
+  } catch (err) {
+    return reply.status(400).send('Invalid Credentials')
+  }
 }
