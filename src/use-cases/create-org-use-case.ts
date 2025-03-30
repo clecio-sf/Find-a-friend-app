@@ -26,15 +26,22 @@ export class CreateOrgUseCase {
   async execute(
     data: CreateOrgUseCaseRequest,
   ): Promise<CreatePetUseCaseResponse> {
-    const { password, ...orgData } = data
+    const { email, password, ...orgData } = data
+
+    const orgWithSameEmail = await this.orgRepository.findByEmail(email)
+
+    if (orgWithSameEmail) {
+      throw new Error('Organization with this email already exists')
+    }
 
     const password_hash = await hash(password, 6)
 
     const org = await this.orgRepository.create({
       ...orgData,
+      email,
       password_hash,
     })
-    console.log(data)
+
     return {
       org,
     }
