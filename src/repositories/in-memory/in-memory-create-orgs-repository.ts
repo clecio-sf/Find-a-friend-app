@@ -1,4 +1,4 @@
-import { Org, Prisma } from '@prisma/client'
+import { Org, Prisma, Role } from '@prisma/client'
 import { OrgsRepository } from '../orgs-repository'
 import { randomUUID } from 'node:crypto'
 
@@ -20,6 +20,7 @@ export class inMemoryCreateOrgsRepository implements OrgsRepository {
       latitude: new Prisma.Decimal(data.latitude.toString()),
       longitude: new Prisma.Decimal(data.longitude.toString()),
       created_at: new Date(),
+      role: Role.MEMBER,
     }
 
     this.itens.push(org)
@@ -29,6 +30,12 @@ export class inMemoryCreateOrgsRepository implements OrgsRepository {
 
   async findByEmail(email: string) {
     const org = this.itens.find((item) => item.email === email)
+
+    return org || null
+  }
+
+  async findById(id: string) {
+    const org = this.itens.find((item) => item.id === id)
 
     return org || null
   }
