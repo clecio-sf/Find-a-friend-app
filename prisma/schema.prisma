@@ -19,6 +19,11 @@ enum Environment {
   LARGE
 }
 
+enum Role {
+  ADMIN
+  MEMBER
+}
+
 model Pets {
   id          String      @id @default(uuid())
   name        String
@@ -41,6 +46,7 @@ model Org {
   name          String
   email         String   @unique
   password_hash String
+  role          Role     @default(MEMBER)
   whatsapp      String
   street        String
   number        String
