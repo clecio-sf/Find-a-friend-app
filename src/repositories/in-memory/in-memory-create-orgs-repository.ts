@@ -3,7 +3,7 @@ import { OrgsRepository } from '../orgs-repository'
 import { randomUUID } from 'node:crypto'
 
 export class inMemoryCreateOrgsRepository implements OrgsRepository {
-  public itens: Org[] = []
+  public items: Org[] = []
 
   async create(data: Prisma.OrgCreateInput) {
     const org = {
@@ -23,20 +23,24 @@ export class inMemoryCreateOrgsRepository implements OrgsRepository {
       role: Role.MEMBER,
     }
 
-    this.itens.push(org)
+    this.items.push(org)
 
     return org
   }
 
   async findByEmail(email: string) {
-    const org = this.itens.find((item) => item.email === email)
+    const org = this.items.find((item) => item.email === email)
 
     return org || null
   }
 
   async findById(id: string) {
-    const org = this.itens.find((item) => item.id === id)
+    const org = this.items.find((item) => item.id === id)
 
     return org || null
+  }
+
+  async findByManyCity(city: string): Promise<Org[]> {
+    return this.items.filter((item) => item.city === city)
   }
 }
