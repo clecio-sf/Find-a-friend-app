@@ -19,22 +19,29 @@ enum Environment {
   LARGE
 }
 
+enum IndependencyLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
 enum Role {
   ADMIN
   MEMBER
 }
 
 model Pets {
-  id          String      @id @default(uuid())
-  name        String
-  age         String
-  about       String
-  type        String
-  size        String
-  color       String
-  environment Environment
-  created_at  DateTime    @default(now())
-  org_id      String
+  id                String            @id @default(uuid())
+  name              String
+  age               String
+  about             String
+  type              String
+  size              String
+  color             String
+  independencyLevel IndependencyLevel
+  environment       Environment
+  created_at        DateTime          @default(now())
+  org_id            String
 
   org Org @relation(fields: [org_id], references: [id])
 
