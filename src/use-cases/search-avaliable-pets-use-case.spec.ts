@@ -1,16 +1,16 @@
-import { inMemoryCreateOrgsRepository } from '@/repositories/in-memory/in-memory-create-orgs-repository'
-import { inMemoryCreatePetsRepository } from '@/repositories/in-memory/in-memory-create-pets-repository'
+import { inMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
+import { inMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
 import { expect, describe, it, beforeEach } from 'vitest'
 import { SearchAvailablePetUseCase } from './search-avaliable-pets-use-case'
 
-let petsRepository: inMemoryCreatePetsRepository
-let orgsRepository: inMemoryCreateOrgsRepository
+let petsRepository: inMemoryPetsRepository
+let orgsRepository: inMemoryOrgsRepository
 let sut: SearchAvailablePetUseCase
 
 describe('Search Avaliable Pet Use Case', () => {
   beforeEach(() => {
-    orgsRepository = new inMemoryCreateOrgsRepository()
-    petsRepository = new inMemoryCreatePetsRepository(orgsRepository)
+    orgsRepository = new inMemoryOrgsRepository()
+    petsRepository = new inMemoryPetsRepository(orgsRepository)
     sut = new SearchAvailablePetUseCase(petsRepository)
   })
 
@@ -57,8 +57,6 @@ describe('Search Avaliable Pet Use Case', () => {
       city: 'Springfield',
       type: 'cat',
     })
-
-    console.log(pets)
 
     expect(pets).toHaveLength(1)
     expect(pets[0].name).toBe('Luna')

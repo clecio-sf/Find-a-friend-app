@@ -1,16 +1,16 @@
 import { CreatePetUseCase } from './create-pet-use-case'
-import { inMemoryCreatePetsRepository } from '@/repositories/in-memory/in-memory-create-pets-repository'
-import { inMemoryCreateOrgsRepository } from '@/repositories/in-memory/in-memory-create-orgs-repository'
+import { inMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository'
+import { inMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { expect, describe, it, beforeEach } from 'vitest'
 
-let petsRepository: inMemoryCreatePetsRepository
-let orgsRepository: inMemoryCreateOrgsRepository
+let petsRepository: inMemoryPetsRepository
+let orgsRepository: inMemoryOrgsRepository
 let sut: CreatePetUseCase
 
 describe('Create Pet Use Case', () => {
   beforeEach(() => {
-    orgsRepository = new inMemoryCreateOrgsRepository()
-    petsRepository = new inMemoryCreatePetsRepository(orgsRepository) // passa o orgsRepository aqui
+    orgsRepository = new inMemoryOrgsRepository()
+    petsRepository = new inMemoryPetsRepository(orgsRepository) // passa o orgsRepository aqui
     sut = new CreatePetUseCase(petsRepository)
   })
 

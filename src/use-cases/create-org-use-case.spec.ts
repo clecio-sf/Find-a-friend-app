@@ -1,14 +1,14 @@
 import { CreateOrgUseCase } from './create-org-use-case'
-import { inMemoryCreateOrgsRepository } from '@/repositories/in-memory/in-memory-create-orgs-repository'
+import { inMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { compare } from 'bcryptjs'
 import { expect, describe, it, beforeEach } from 'vitest'
 
-let orgsRepository: inMemoryCreateOrgsRepository
+let orgsRepository: inMemoryOrgsRepository
 let sut: CreateOrgUseCase
 
 describe('Create Org Use Case', () => {
   beforeEach(() => {
-    orgsRepository = new inMemoryCreateOrgsRepository()
+    orgsRepository = new inMemoryOrgsRepository()
     sut = new CreateOrgUseCase(orgsRepository)
   })
 

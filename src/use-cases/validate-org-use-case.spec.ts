@@ -1,13 +1,13 @@
-import { inMemoryCreateOrgsRepository } from '@/repositories/in-memory/in-memory-create-orgs-repository'
+import { inMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { ValidateOrgUseCase } from './validate-org-use-case'
 import { expect, it, beforeEach, describe } from 'vitest'
 
-let orgsRepository: inMemoryCreateOrgsRepository
+let orgsRepository: inMemoryOrgsRepository
 let sut: ValidateOrgUseCase
 
 describe('Validate Org Use Case', () => {
   beforeEach(async () => {
-    orgsRepository = new inMemoryCreateOrgsRepository()
+    orgsRepository = new inMemoryOrgsRepository()
     sut = new ValidateOrgUseCase(orgsRepository)
   })
 
