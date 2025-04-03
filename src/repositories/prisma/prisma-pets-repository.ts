@@ -49,6 +49,14 @@ export class PrismaPetsRepository implements PetsRepository {
       where: {
         id,
       },
+      include: {
+        org: {
+          select: {
+            name: true,
+            whatsapp: true,
+          },
+        },
+      },
     })
 
     return pet
